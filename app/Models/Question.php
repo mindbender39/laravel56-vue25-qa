@@ -18,6 +18,17 @@ class Question extends Model
         $this->attributes['slug'] = str_slug($value);
     }
 
+    /* ACCESSORS */
+    public function getUrlAttribute()
+    {
+        return route('questions.show', $this->id);
+    }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
     public function getStatusAttribute()
     {
         if ($this->answers > 0) {
