@@ -25,6 +25,10 @@ Help:
   - Create a folder in app/View/Composer
   - Add file and register it in app/Providers/AppServiceProvider.php inside boot function
 
+- view routes:
+    - php artisan route:list
+    - to view specific route use its name
+        - php artisan route:list --name=questions
 ------------------------------------------------------------------------------------------
 01: Installing Laravel
     - Using composer run the following command by starting composer cmd in wamp/www
@@ -119,7 +123,15 @@ Working with Git steps:
     - git add .
     - git commit -m "your comments"
     - git push origin master
-9:  
+9:  to find out in which branch we are standing right now
+    - git branch 
+10: before starting new lesson we will create a new branch locally and merge it with master when we done.
+    - git checkout -b yourBranchName
+11: after completing lesson we will repeat step 2 and 3 then push our new branch
+    - git push origin yourBranchName
+12: switch back to master branch
+    - git checkout master
+    - git merge yourBranchName
 
 
 
