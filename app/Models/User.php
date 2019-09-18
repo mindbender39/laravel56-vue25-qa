@@ -27,6 +27,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /* ACCESSORS */
+    public function getUrlAttribute()
+    {
+        //return route('questions.show', $this->id);
+        return '#';
+    }
+
     /* RELATIONSHIP */
     public function questions()
     {

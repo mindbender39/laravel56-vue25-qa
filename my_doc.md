@@ -26,6 +26,12 @@ Help:
   - Add file and register it in app/Providers/AppServiceProvider.php inside boot function
 
 ------------------------------------------------------------------------------------------
+Packages Used:
+1: https://github.com/barryvdh/laravel-debugbar
+    - composer require barryvdh/laravel-debugbar --dev
+
+
+------------------------------------------------------------------------------------------
 01: Installing Laravel
     - Using composer run the following command by starting composer cmd in wamp/www
     - command: composer create-project laravel/laravel blog "5.6.*" (version: if specific)
@@ -107,7 +113,7 @@ OR
 --------------------------------------------
 Working with Git steps:
 1: From project directory run command: git init
-2: git add .
+2: git add . (here dot means all files/changes)
 3: git commit -m "Initial Commit"
 4: create a repository on Git account
 5: then push locally created repo. to remote:
@@ -119,7 +125,11 @@ Working with Git steps:
     - git add .
     - git commit -m "your comments"
     - git push origin master
-9:  
+9: to find out in which branch we are standing right now
+    - git branch
+10:  before starting new lesson we will create a new branch locally and merge it with master when we done.
+    - git checkout -b yourBranchName
+
 
 
 
