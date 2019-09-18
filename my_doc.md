@@ -113,8 +113,13 @@ Working with Git steps:
 5: then push locally created repo. to remote:
     - git remote add origin https://github.com/mindbender39/laravel56-vue25-qa.git
 6: git push -u origin master
-
-
+7: to check status to see if we made any change
+    - git status
+8: if any change found then add those changes/files
+    - git add .
+    - git commit -m "your comments"
+    - git push origin master
+9:  
 
 
 
