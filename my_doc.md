@@ -129,6 +129,11 @@ Working with Git steps:
     - git branch
 10:  before starting new lesson we will create a new branch locally and merge it with master when we done.
     - git checkout -b yourBranchName
+11: after completing lesson we will repeat step 2 and 3 then push our new branch
+    - git push origin yourBranchName
+12: switch back to master branch
+    - git checkout master
+    - git merge yourBranchName
 
 
 
