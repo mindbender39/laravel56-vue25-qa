@@ -29,6 +29,11 @@ Help:
     - php artisan route:list
     - to view specific route use its name
         - php artisan route:list --name=questions
+        
+- Generate Policy for specific model using:
+    - php artisan make:policy QuestionPolicy --model=Question
+    - register policy in AuthServiceProvider
+
 ------------------------------------------------------------------------------------------
 01: Installing Laravel
     - Using composer run the following command by starting composer cmd in wamp/www

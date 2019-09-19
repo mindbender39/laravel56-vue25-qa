@@ -41,16 +41,22 @@
                                         </h3>
                                         <div class="ml-auto">
                                             {{-- this authorization functionality created in AuthServiceProvider using Gate --}}
-                                            @if (auth()->user()->can('update-question', $question))
+                                            {{--@if (auth()->user()->can('update-question', $question)) @endif--}}
+
+                                            {{-- this authorization functionality created in QuestionPolicy using Policy --}}
+                                            {{-- instead of using if statement and check with authenticated user we can just use @can directive --}}
+                                            @can ('update', $question)
                                                 <a href="{{route('questions.edit', $question->id)}}" class="btn btn-outline-info btn-sm">Edit</a>
-                                            @endif
-                                                @if (auth()->user()->can('delete-question', $question))
-                                                    <form class="d-inline-block" method="post" action="{{route('questions.destroy', $question->id)}}">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                                                    </form>
-                                                @endif
+                                            @endcan
+
+                                            {{--@if (auth()->user()->can('delete-question', $question)) @endif--}}
+                                            @can ('delete', $question)
+                                                <form class="d-inline-block" method="post" action="{{route('questions.destroy', $question->id)}}">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                                </form>
+                                            @endcan
                                         </div>
                                     </div>
                                     <p class="lead">
