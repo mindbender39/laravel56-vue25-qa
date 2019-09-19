@@ -40,6 +40,7 @@
                                             <a href="{{$question->url}}">{{$question->title}}</a>
                                         </h3>
                                         <div class="ml-auto">
+                                            {{-- this authorization functionality created in AuthServiceProvider using Gate --}}
                                             @if (auth()->user()->can('update-question', $question))
                                                 <a href="{{route('questions.edit', $question->id)}}" class="btn btn-outline-info btn-sm">Edit</a>
                                             @endif
