@@ -21,7 +21,7 @@ class Question extends Model
     /* ACCESSORS */
     public function getUrlAttribute()
     {
-        return route('questions.show', $this->id);
+        return route('questions.show', $this->slug);
     }
 
     public function getCreatedDateAttribute()
@@ -38,6 +38,12 @@ class Question extends Model
             return 'answered';
         }
         return 'unanswered';
+    }
+
+    public function getBodyHtmlAttribute()
+    {
+        // convert markdown to html built-in after 5.5 >=
+        return \Parsedown::instance()->text($this->body);
     }
 
     /* RELATIONSHIP */
