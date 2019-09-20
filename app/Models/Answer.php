@@ -23,4 +23,15 @@ class Answer extends Model
     {
         return $this->belongsTo(Question::class);
     }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        // creating Laravel lifecycle hook: created(closure function which accepts current model instance as argument)
+        static::created(function ($answer) {
+            // answers_count is a column of questions table
+            $answer->question->increment('answers_count');
+        });
+    }
 }

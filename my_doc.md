@@ -34,6 +34,9 @@ Help:
     - php artisan make:policy QuestionPolicy --model=Question
     - register policy in AuthServiceProvider
 
+- Create factory using:
+    - php artisan make:factory AnswerFactory
+
 ------------------------------------------------------------------------------------------
 01: Installing Laravel
     - Using composer run the following command by starting composer cmd in wamp/www
