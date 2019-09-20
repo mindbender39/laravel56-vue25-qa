@@ -37,6 +37,9 @@ Help:
 - Create factory using:
     - php artisan make:factory AnswerFactory
 
+- Install npm package for dev/development purpose only using -D flag:
+    - npm install @fortawesome/fontawesome @fortawesome/fontawesome-free-solid -D
+
 ------------------------------------------------------------------------------------------
 01: Installing Laravel
     - Using composer run the following command by starting composer cmd in wamp/www
