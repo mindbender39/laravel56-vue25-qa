@@ -82,6 +82,8 @@ OR
     - To run specific migration then create a folder inside migrations folder and
       use the following command, in that way old migrations won't run.
       php artisan migrate --path=/database/migrations/temp
+    - To rename a column in a table using migration:
+        - php artisan make:migration rename_answers_column_in_question_table --table=questions
 
 --------------------------------------------------------------------------------------------------
 05: Create Controller:
