@@ -34,6 +34,15 @@ class User extends Authenticatable
         return '#';
     }
 
+    public function getAvatarAttribute()
+    {
+        $email = $this->email;
+        $size = 23;
+        $default = asset('/images/avatar/user-1.jpg');
+
+        return 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($email)))."?s={$size}";
+    }
+
     /* RELATIONSHIP */
     public function questions()
     {
