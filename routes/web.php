@@ -25,5 +25,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 // php artisan make:controller QuestionsController --resource --model=Question
 Route::resource('questions', 'QuestionsController')->except('show');
 
+// create answers route nested to questions route
+//Route::post('/questions/{question}/answers', 'AnswersController@store')->name('answers.store');
+// or by resource route
+// we can see those routes using: php artisan route:list --name=questions
+// create resource controller with model reference: php artisan make:controller AnswersController -r -m Answer
+Route::resource('questions.answers', 'AnswersController')->except(['index', 'create', 'show']);
+
 /* slug binding functionality is implemented in RouteServiceProvider */
 Route::get('/questions/{slug}', 'QuestionsController@show')->name('questions.show');
