@@ -145,7 +145,8 @@ Working with Git steps:
 12: switch back to master branch
     - git checkout master
     - git merge yourBranchName
-
+13: to delete a branch:
+    - git branch -d branchNameToDelete
 
 
 

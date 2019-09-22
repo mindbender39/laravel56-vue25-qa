@@ -41,7 +41,8 @@ class Answer extends Model
         parent::boot();
 
         /* ELOQUENT EVENTS */
-        // creating Laravel lifecycle hook: created(closure function which accepts current model instance as argument)
+        // creating Laravel lifecycle hook: created(closure function which accepts current
+        // model instance as argument)
         static::created(function ($answer) {
             // answers_count is a column of questions table
             $answer->question->increment('answers_count');
@@ -51,10 +52,12 @@ class Answer extends Model
             $question = $answer->question;
             $question->decrement('answers_count');
 
-            if ($question->best_answer_id === $answer->id) {
+            // another way to updated best_answer_id in questions table is by setting that column
+            // as foreign key and when an answer delete it will set to null at DB level
+            /*if ($question->best_answer_id === $answer->id) {
                 $question->best_answer_id = null;
                 $question->save();
-            }
+            }*/
         });
     }
 }
