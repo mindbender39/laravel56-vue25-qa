@@ -74,4 +74,13 @@ class AnswersController extends Controller
 
         return back()->with('success', 'Your answer has been deleted successfully!');
     }
+
+    public function acceptAnswer(Answer $answer)
+    {
+        $this->authorize('allowAccept', $answer);
+
+        $answer->question->acceptBestAnswer($answer);
+
+        return back();
+    }
 }

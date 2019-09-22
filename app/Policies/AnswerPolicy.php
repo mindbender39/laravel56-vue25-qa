@@ -80,4 +80,9 @@ class AnswerPolicy
     {
         //
     }
+
+    public function allowAccept(User $user, Answer $answer)
+    {
+        return $user->id === $answer->question->user_id;
+    }
 }

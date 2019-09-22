@@ -22,7 +22,18 @@ class Answer extends Model
 
     public function getStatusAttribute()
     {
-        return $this->id === $this->question->best_answer_id ? 'vote-accepted' : '';
+         return $this->isBestAnswer() ? 'vote-accepted' : '';
+    }
+
+    public function getIsBestAnswerAttribute()
+    {
+        return $this->isBestAnswer();
+    }
+
+    /* OTHER FUNCTIONS */
+    public function isBestAnswer()
+    {
+        return $this->id === $this->question->best_answer_id;
     }
 
     /* RELATIONSHIP */

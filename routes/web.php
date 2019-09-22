@@ -29,8 +29,14 @@ Route::resource('questions', 'QuestionsController')->except('show');
 //Route::post('/questions/{question}/answers', 'AnswersController@store')->name('answers.store');
 // or by resource route
 // we can see those routes using: php artisan route:list --name=questions
-// create resource controller with model reference: php artisan make:controller AnswersController -r -m Answer
+// create resource controller with model reference:
+// php artisan make:controller AnswersController -r -m Answer
 Route::resource('questions.answers', 'AnswersController')->except(['index', 'create', 'show']);
 
 /* slug binding functionality is implemented in RouteServiceProvider */
 Route::get('/questions/{slug}', 'QuestionsController@show')->name('questions.show');
+
+Route::post('/answers/{answer}/accept', 'AnswersController@acceptAnswer')->name('answers.accept');
+// or we can use Single Action Controller without using @ sign with action name and
+// inside controller create an action/function using _invoke(Answer $answer) {}
+//Route::post('/answers/{answer}/accept', 'AcceptAnswersController')->name('answers.accept');
