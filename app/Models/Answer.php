@@ -20,6 +20,11 @@ class Answer extends Model
         return $this->created_at->diffForHumans();
     }
 
+    public function getStatusAttribute()
+    {
+        return $this->id === $this->question->best_answer_id ? 'vote-accepted' : '';
+    }
+
     /* RELATIONSHIP */
     public function user()
     {
@@ -35,6 +40,7 @@ class Answer extends Model
     {
         parent::boot();
 
+        /* ELOQUENT EVENTS */
         // creating Laravel lifecycle hook: created(closure function which accepts current model instance as argument)
         static::created(function ($answer) {
             // answers_count is a column of questions table
@@ -42,7 +48,13 @@ class Answer extends Model
         });
 
         static::deleted(function ($answer) {
-            $answer->question->decrement('answers_count');
+            $question = $answer->question;
+            $question->decrement('answers_count');
+
+            if ($question->best_answer_id === $answer->id) {
+                $question->best_answer_id = null;
+                $question->save();
+            }
         });
     }
 }
