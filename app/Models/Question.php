@@ -46,11 +46,26 @@ class Question extends Model
         return \Parsedown::instance()->text($this->body);
     }
 
+    public function getIsFavoritedAttribute()
+    {
+        return $this->isFavorited();
+    }
+
+    public function getFavoritesCountAttribute()
+    {
+        return $this->favorites->count();
+    }
+
     /* OTHER FUNCTIONS */
     public function acceptBestAnswer(Answer $answer)
     {
         $this->best_answer_id = $answer->id;
         $this->save();
+    }
+
+    public function isFavorited()
+    {
+        return $this->favorites()->where('user_id', auth()->id())->count() > 0;
     }
 
     /* RELATIONSHIP */
@@ -62,5 +77,16 @@ class Question extends Model
     public function answers()
     {
         return $this->hasMany(Answer::class);
+    }
+
+    public function favorites()
+    {
+        // a user can have more than one favorite question
+        // as our table name is favorites not question_user so we must specify that name
+        // else query assume that our table name is question_user
+        // (in alphabetical order q first u last)
+        // as we are following the convention like question_id and user_id so 3rd and 4th
+        // params are optional in this case
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps(); // question_id, user_id
     }
 }

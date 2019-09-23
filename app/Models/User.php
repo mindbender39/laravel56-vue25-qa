@@ -53,4 +53,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Answer::class);
     }
+
+    public function favorites()
+    {
+        // a user can have more than one favorite question
+        /* as our table name is favorites not question_user so we must specify that name
+           else query assume that our table name is question_user
+           (in alphabetical order q first u last) */
+        /* as we are following the convention like user_id and question_id so 3rd and 4th
+           params are optional in this case */
+        /* withTimestamps() is chained for created_at and updated_at columns to fill
+           at the time to seed favorites table */
+        return $this->belongsToMany(Question::class, 'favorites')->withTimestamps();  // user_id, question_id
+    }
 }

@@ -19,17 +19,25 @@
                         <hr>
                         <div class="media">
                             <div class="d-flex flex-column vote-controls">
-                                <a href="#" class="vote-up" title="This question is useful">
+                                <a class="vote-up" title="This question is useful">
                                     <i class="fas fa-caret-up fa-3x"></i>
                                 </a>
                                 <span class="votes-count">1230</span>
-                                <a href="#" class="vote-down off" title="This question is not useful">
+                                <a class="vote-down off" title="This question is not useful">
                                     <i class="fas fa-caret-down fa-3x"></i>
                                 </a>
-                                <a href="#" class="favorite favorited mt-2" title="Click to mark as favorite question (Click again to undo)">
+                                <a class="favorite mt-2 {{auth()->guest() ? 'off' : ($question->is_favorited ? 'favorited' : '')}}"
+                                   title="Click to mark as favorite question (Click again to undo)"
+                                   onclick="event.preventDefault(); document.getElementById('favorite-question-{{$question->id}}').submit();">
                                     <i class="fas fa-star fa-2x"></i>
-                                    <span class="favorites-count">132</span>
+                                    <span class="favorites-count">{{$question->favorites_count}}</span>
                                 </a>
+                                <form id="favorite-question-{{$question->id}}" method="post" action="/questions/{{$question->id}}/favorites" style="display: none; height: 0;">
+                                    @csrf
+                                    @if ($question->is_favorited)
+                                        @method('DELETE')
+                                    @endif
+                                </form>
                             </div>
                             <div class="media-body">
                                 {!! $question->body_html !!}

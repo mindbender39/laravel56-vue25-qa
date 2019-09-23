@@ -40,3 +40,6 @@ Route::post('/answers/{answer}/accept', 'AnswersController@acceptAnswer')->name(
 // or we can use Single Action Controller without using @ sign with action name and
 // inside controller create an action/function using _invoke(Answer $answer) {}
 //Route::post('/answers/{answer}/accept', 'AcceptAnswersController')->name('answers.accept');
+
+Route::post('questions/{question}/favorites', 'FavoritesController@store')->name('questions.favorite');
+Route::delete('questions/{question}/favorites', 'FavoritesController@destroy')->name('questions.unfavorite');
