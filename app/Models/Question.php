@@ -68,6 +68,16 @@ class Question extends Model
         return $this->favorites()->where('user_id', auth()->id())->count() > 0;
     }
 
+    public function upVotes()
+    {
+        return $this->votes()->wherePivot('vote', 1);
+    }
+
+    public function downVotes()
+    {
+        return $this->votes()->wherePivot('vote', -1);
+    }
+
     /* RELATIONSHIP */
     public function user()
     {
@@ -88,5 +98,12 @@ class Question extends Model
         // as we are following the convention like question_id and user_id so 3rd and 4th
         // params are optional in this case
         return $this->belongsToMany(User::class, 'favorites')->withTimestamps(); // question_id, user_id
+    }
+
+    public function votes()
+    {
+        // 1st argument is the related model and 2nd will be table name
+        // in case of morphe relationship we use singular pivot table name: votable
+        return $this->morphToMany(User::class, 'votable');
     }
 }

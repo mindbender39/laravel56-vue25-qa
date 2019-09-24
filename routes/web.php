@@ -41,5 +41,8 @@ Route::post('/answers/{answer}/accept', 'AnswersController@acceptAnswer')->name(
 // inside controller create an action/function using _invoke(Answer $answer) {}
 //Route::post('/answers/{answer}/accept', 'AcceptAnswersController')->name('answers.accept');
 
-Route::post('questions/{question}/favorites', 'FavoritesController@store')->name('questions.favorite');
-Route::delete('questions/{question}/favorites', 'FavoritesController@destroy')->name('questions.unfavorite');
+Route::post('/questions/{question}/favorites', 'FavoritesController@store')->name('questions.favorite');
+Route::delete('/questions/{question}/favorites', 'FavoritesController@destroy')->name('questions.unfavorite');
+
+// single action controller
+Route::post('/questions/{question}/vote', 'VoteQuestionController');

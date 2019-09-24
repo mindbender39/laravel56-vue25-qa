@@ -43,6 +43,27 @@ class User extends Authenticatable
         return 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($email)))."?s={$size}";
     }
 
+    /* OTHER FUNCTIONS */
+    public function voteQuestion(Question $question, $vote)
+    {
+        $voteQuestions = $this->voteQuestions();
+
+        if ($voteQuestions->where('votable_id', $question->id)->exists()) {
+            $voteQuestions->updateExistingPivot($question, ['vote' => $vote]);
+        } else {
+            $voteQuestions->attach($question, ['vote' => $vote]);
+        }
+
+        // refresh the relationship
+        $question->load('votes');
+
+        $upVotes = (int)$question->upVotes()->sum('vote');
+        $downVotes = (int)$question->downVotes()->sum('vote');
+
+        $question->votes_count = ($upVotes + $downVotes);
+        $question->save();
+    }
+
     /* RELATIONSHIP */
     public function questions()
     {
@@ -65,5 +86,19 @@ class User extends Authenticatable
         /* withTimestamps() is chained for created_at and updated_at columns to fill
            at the time to seed favorites table */
         return $this->belongsToMany(Question::class, 'favorites')->withTimestamps();  // user_id, question_id
+    }
+
+    public function voteQuestions()
+    {
+        // 1st argument is the related model and 2nd will be table name
+        // in case of morphe relationship we use singular pivot table name: votable
+        return $this->morphedByMany(Question::class, 'votable');
+    }
+
+    public function voteAnswers()
+    {
+        // 1st argument is the related model and 2nd will be table name
+        // in case of morphe relationship we use singular pivot table name: votable
+        return $this->morphedByMany(Answer::class, 'votable');
     }
 }

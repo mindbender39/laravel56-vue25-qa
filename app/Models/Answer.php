@@ -47,6 +47,13 @@ class Answer extends Model
         return $this->belongsTo(Question::class);
     }
 
+    public function votes()
+    {
+        // 1st argument is the related model and 2nd will be table name
+        // in case of morphe relationship we use singular pivot table name: votable
+        return $this->morphToMany(User::class, 'votable');
+    }
+
     public static function boot()
     {
         parent::boot();

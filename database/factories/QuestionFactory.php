@@ -10,6 +10,7 @@ $factory->define(App\Models\Question::class, function (Faker $faker) {
         'views' => rand(0, 10),
         // we will set answers_count from Answer model using created() hook which will call as an answer created
         //'answers_count' => rand(0, 10),
-        'votes' => rand(-3, 10)
+        // votes_count commented after Implementation of VotablesTableSeeder
+        //'votes_count' => rand(-3, 10)
     ];
 });
