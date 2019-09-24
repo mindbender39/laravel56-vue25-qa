@@ -12,13 +12,26 @@
                 @foreach($answers as $answer)
                     <div class="media">
                         <div class="d-flex flex-column vote-controls">
-                            <a href="#" class="vote-up" title="This answer is useful">
+                            <a class="vote-up {{auth()->guest() ? 'off' : ''}}" title="This answer is useful"
+                               onclick="event.preventDefault(); document.getElementById('up-vote-{{$answer->id}}').submit();">
                                 <i class="fas fa-caret-up fa-3x"></i>
                             </a>
-                            <span class="votes-count">1230</span>
-                            <a href="#" class="vote-down off" title="This answer is not useful">
+                            <form id="up-vote-{{$answer->id}}" method="post" action="/answers/{{$answer->id}}/vote" style="display: none; height: 0;">
+                                @csrf
+                                <input type="hidden" name="vote" value="1">
+                            </form>
+
+                            <span class="votes-count">{{$answer->votes_count}}</span>
+
+                            <a class="vote-down {{auth()->guest() ? 'off' : ''}}" title="This answer is not useful"
+                               onclick="event.preventDefault(); document.getElementById('down-vote-{{$answer->id}}').submit();">
                                 <i class="fas fa-caret-down fa-3x"></i>
                             </a>
+                            <form id="down-vote-{{$answer->id}}" method="post" action="/answers/{{$answer->id}}/vote" style="display: none; height: 0;">
+                                @csrf
+                                <input type="hidden" name="vote" value="-1">
+                            </form>
+
                             @can('allowAccept', $answer)
                                 <a class="{{$answer->status}} mt-2" title="Mark this answer as best answer"
                                    onclick="event.preventDefault(); document.getElementById('accept-answer-{{$answer->id}}').submit();">

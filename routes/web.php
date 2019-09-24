@@ -44,5 +44,8 @@ Route::post('/answers/{answer}/accept', 'AnswersController@acceptAnswer')->name(
 Route::post('/questions/{question}/favorites', 'FavoritesController@store')->name('questions.favorite');
 Route::delete('/questions/{question}/favorites', 'FavoritesController@destroy')->name('questions.unfavorite');
 
-// single action controller
+// single action controller for question votes
 Route::post('/questions/{question}/vote', 'VoteQuestionController');
+
+// single action controller for answer votes
+Route::post('/answers/{answer}/vote', 'VoteAnswerController');

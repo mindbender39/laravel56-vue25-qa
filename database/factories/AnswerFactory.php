@@ -6,6 +6,7 @@ $factory->define(\App\Models\Answer::class, function (Faker $faker) {
     return [
         'user_id' => \App\Models\User::pluck('id')->random(),
         'body' => $faker->paragraphs(rand(3, 7), true),
-        'votes_count' => rand(0, 5)
+        // votes_count commented after Implementation of VotablesTableSeeder
+        //'votes_count' => rand(0, 5)
     ];
 });
