@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\VotableTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
+    use VotableTrait;
+
     protected $fillable = ['body', 'user_id'];
 
     /* ACCESSORS */
@@ -36,16 +39,6 @@ class Answer extends Model
         return $this->id === $this->question->best_answer_id;
     }
 
-    public function upVotes()
-    {
-        return $this->votes()->wherePivot('vote', 1);
-    }
-
-    public function downVotes()
-    {
-        return $this->votes()->wherePivot('vote', -1);
-    }
-
     /* RELATIONSHIP */
     public function user()
     {
@@ -55,13 +48,6 @@ class Answer extends Model
     public function question()
     {
         return $this->belongsTo(Question::class);
-    }
-
-    public function votes()
-    {
-        // 1st argument is the related model and 2nd will be table name
-        // in case of morphe relationship we use singular pivot table name: votable
-        return $this->morphToMany(User::class, 'votable');
     }
 
     public static function boot()
