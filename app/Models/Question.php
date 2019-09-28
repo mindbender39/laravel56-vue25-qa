@@ -103,7 +103,8 @@ class Question extends Model
 
     public function answers()
     {
-        return $this->hasMany(Answer::class);
+        // anywhere we try to fetch answers they will show in descending order
+        return $this->hasMany(Answer::class)->orderByDesc('votes_count');
     }
 
     public function favorites()
