@@ -31,7 +31,7 @@
                                         {{str_plural('answer', $question->answers_count)}}
                                     </div>
                                     <div class="view">
-                                        {{$question->views .' '. str_plural('view', $question->views)}}
+                                        {{"{$question->views} ". str_plural('view', $question->views)}}
                                     </div>
                                 </div>
                                 <div class="media-body">
@@ -64,7 +64,9 @@
                                         <a href="{{$question->user->url}}">{{$question->user->name}}</a>
                                         <small class="text-muted">{{$question->created_date}}</small>
                                     </p>
-                                    {{str_limit($question->body, 250)}}
+                                    <div class="excerpt">
+                                        {{$question->excerpt}}
+                                    </div>
                                 </div>
                             </div>
                             <hr>

@@ -21,6 +21,13 @@ class Question extends Model
         $this->attributes['slug'] = str_slug($value);
     }
 
+    /*public function setBodyAttribute($value)
+    {
+        // clean() function is an helper function from htmlpurifier to clean/remove malicious code
+        // e.g: someone try to save <script>malicious code here</script>
+        $this->attributes['body'] = clean($value);
+    }*/
+
     /* ACCESSORS */
     public function getUrlAttribute()
     {
@@ -45,8 +52,25 @@ class Question extends Model
 
     public function getBodyHtmlAttribute()
     {
+        // clean() function is an helper function from htmlpurifier to clean/remove malicious code
+        // e.g: someone try to save <script>malicious code here</script>
+        return clean($this->getbodyHtml());
+    }
+
+    private function getbodyHtml()
+    {
         // convert markdown to html built-in after 5.5 >=
         return \Parsedown::instance()->text($this->body);
+    }
+
+    public function getExcerptAttribute()
+    {
+        return $this->excerpt();
+    }
+
+    public function excerpt($length=250)
+    {
+        return str_limit(strip_tags($this->getbodyHtml()), $length);
     }
 
     public function getIsFavoritedAttribute()

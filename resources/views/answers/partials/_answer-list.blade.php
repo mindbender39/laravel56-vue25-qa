@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="card-title">
-                    <h2>{{$answersCount .' '. str_plural('Answer', $answersCount)}}</h2>
+                    <h2>{{"{$answersCount} ". str_plural('Answer', $answersCount)}}</h2>
                 </div>
                 <hr>
 

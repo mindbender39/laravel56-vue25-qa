@@ -14,8 +14,11 @@ class Answer extends Model
     /* ACCESSORS */
     public function getBodyHtmlAttribute()
     {
+        // clean() function is an helper function from htmlpurifier to clean/remove malicious code
+        // e.g: someone try to save <script>malicious code here</script>
+
         // convert markdown to html built-in after 5.5 >=
-        return \Parsedown::instance()->text($this->body);
+        return clean(\Parsedown::instance()->text($this->body));
     }
 
     public function getCreatedDateAttribute()
