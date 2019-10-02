@@ -18,6 +18,14 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    /*
+     * To add our accessors in response json so we can access them in VueJs components
+     * */
+    protected $appends = [
+        'url',
+        'avatar'
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *

@@ -11,6 +11,13 @@ class Answer extends Model
 
     protected $fillable = ['body', 'user_id'];
 
+    /*
+     * To add our accessors in response json so we can access them in VueJs components
+     * */
+    protected $appends = [
+        'created_date'
+    ];
+
     /* ACCESSORS */
     public function getBodyHtmlAttribute()
     {

@@ -14,6 +14,13 @@ class Question extends Model
         'body'
     ];
 
+    /*
+     * To add our accessors in response json so we can access them in VueJs components
+     * */
+    protected $appends = [
+        'created_date'
+    ];
+
     /* MUTATOR */
     public function setTitleAttribute($value)
     {
