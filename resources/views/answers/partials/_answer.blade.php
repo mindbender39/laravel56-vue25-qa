@@ -1,4 +1,4 @@
-<answer-cmp :answer="{{$answer}}" inline-template>
+<answer :answer="{{$answer}}" inline-template>
     <div class="media media-item">
         @include('partials._vote', ['model' => $answer])
 
@@ -42,4 +42,4 @@
             </div>
         </div>
     </div>
-</answer-cmp>
+</answer>

@@ -31,7 +31,8 @@
     </form>
 
     @if ($model instanceof \App\Models\Question)
-        @include('partials._favorite', ['model' => $model])
+        {{--@include('partials._favorite', ['model' => $model])--}}
+        <favorite :question="{{$model}}"></favorite>
     @elseif ($model instanceof \App\Models\Answer)
         @include('partials._answer-accept', ['model' => $model])
     @endif

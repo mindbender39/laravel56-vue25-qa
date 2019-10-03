@@ -4,7 +4,8 @@
     <i class="fas fa-star fa-2x"></i>
     <span class="favorites-count">{{$model->favorites_count}}</span>
 </a>
-<form id="favorite-question-{{$model->id}}" method="post" action="/questions/{{$model->id}}/favorites" style="display: none; height: 0;">
+<form id="favorite-question-{{$model->id}}" method="post" action="/questions/{{$model->id}}/favorites"
+      style="display: none; height: 0;">
     @csrf
     @if ($model->is_favorited)
         @method('DELETE')

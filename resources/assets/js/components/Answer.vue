@@ -1,7 +1,7 @@
 <!-- _answer.blade.php file will work as an inline-template for this component -->
 <script>
     export default {
-        name: 'answer-cmp',
+        name: 'Answer',
 
         props: ['answer'],
 
@@ -32,10 +32,10 @@
                     .then(res => {
                         this.editing = false;
                         this.bodyHtml = res.data.body_html;
-                        this.$toast.success(res.data.message, 'Success!', {timeout:3000});
+                        this.$toast.success(res.data.message, 'Success!', {timeout:5000});
                     })
                     .catch(error => {
-                        this.$toast.error(error.response.data.message, 'Error!', {timeout:3000});
+                        this.$toast.error(error.response.data.message, 'Error!', {timeout:5000});
                     });
             },
             deleteAnswer() {
@@ -52,11 +52,11 @@
                             axios.delete(this.endpoint)
                                 .then(res => {
                                     $(this.$el).fadeOut(500, () => {
-                                        this.$toast.success(res.data.message, 'Success!', {timeout:3000});
+                                        this.$toast.success(res.data.message, 'Success!', {timeout:5000});
                                     });
                                 })
                                 .catch(error => {
-                                    this.$toast.error(error.response.data.message, 'Error!', {timeout:3000});
+                                    this.$toast.error(error.response.data.message, 'Error!', {timeout:5000});
                                 });
 
                             instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');

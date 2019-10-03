@@ -16,6 +16,7 @@
 
 <script>
     export default {
+        name: 'UserInfo',
         props: ['model', 'label'],
 
         data() {
