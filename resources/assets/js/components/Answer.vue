@@ -31,24 +31,41 @@
                 })
                     .then(res => {
                         this.editing = false;
-                        this.bodyHtml = res.data.body_html
+                        this.bodyHtml = res.data.body_html;
+                        this.$toast.success(res.data.message, 'Success!', {timeout:3000});
                     })
                     .catch(error => {
-                        console.log('Something went wrong: ' + error);
+                        this.$toast.error(error.response.data.message, 'Error!', {timeout:3000});
                     });
             },
             deleteAnswer() {
-                if(confirm('Are you sure, you want to delete this answer?')) {
-                    axios.delete(this.endpoint)
-                        .then(res => {
-                            $(this.$el).fadeOut(500, () => {
-                                alert(res.data.message);
-                            });
-                        })
-                        .catch(error => {
-                            console.log('Something went wrong: ' + error);
-                        });
-                }
+                this.$toast.question('Are you sure, you want to delete this answer?', 'Confirm!', {
+                    timeout: 20000,
+                    close: false,
+                    overlay: true,
+                    displayMode: 'once',
+                    id: 'question',
+                    zindex: 999,
+                    position: 'center',
+                    buttons: [
+                        ['<button><b>YES</b></button>', (instance, toast) => {
+                            axios.delete(this.endpoint)
+                                .then(res => {
+                                    $(this.$el).fadeOut(500, () => {
+                                        this.$toast.success(res.data.message, 'Success!', {timeout:3000});
+                                    });
+                                })
+                                .catch(error => {
+                                    this.$toast.error(error.response.data.message, 'Error!', {timeout:3000});
+                                });
+
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                        }, true],
+                        ['<button>NO</button>', function (instance, toast) {
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                        }],
+                    ]
+                });
             }
         },
 

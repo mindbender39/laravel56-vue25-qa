@@ -39,6 +39,9 @@ Help:
 
 - Install npm package for dev/development purpose only using -D flag:
     - npm install @fortawesome/fontawesome @fortawesome/fontawesome-free-solid -D
+    - npm i vue-izitoast -D 
+        (https://github.com/arthurvasconcelos/vue-izitoast)
+        (https://github.com/marcelodolza/iziToast)
 
 ------------------------------------------------------------------------------------------
 01: Installing Laravel
