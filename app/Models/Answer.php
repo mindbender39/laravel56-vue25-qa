@@ -15,7 +15,8 @@ class Answer extends Model
      * To add our accessors in response json so we can access them in VueJs components
      * */
     protected $appends = [
-        'created_date'
+        'created_date',
+        'body_html'
     ];
 
     /* ACCESSORS */

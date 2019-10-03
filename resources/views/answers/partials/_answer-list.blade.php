@@ -1,5 +1,7 @@
 @if ($answersCount > 0)
-    <div class="row mt-4">
+    {{-- v-cloak is a attribute that you can add to a element you want to hide, while Vue is mounting.
+    Soon as Vue is ready, this attribute is removed. --}}
+    <div class="row mt-4" v-cloak>
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">

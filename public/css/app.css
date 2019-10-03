@@ -11738,3 +11738,13 @@ a.text-dark:focus {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+/* style VueJs properties or attributes */
+
+[v-cloak] > * {
+  display: none;
+}
+
+[v-cloak]::before {
+  content: "loading...";
+}
+

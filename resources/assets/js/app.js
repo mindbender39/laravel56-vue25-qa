@@ -17,6 +17,7 @@ window.Vue = require('vue');
  */
 
 Vue.component('user-info', require('./components/UserInfo.vue'));
+Vue.component('answer-cmp', require('./components/Answer.vue'));
 
 const app = new Vue({
     el: '#app'
