@@ -27,14 +27,9 @@
 
                             {{--@if (auth()->user()->can('delete-question', $answer)) @endif--}}
                             @can ('delete', $answer)
-                                <form class="d-inline-block" method="post"
-                                      action="{{route('questions.answers.destroy', [$question->id, $answer->id])}}">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">
-                                        Delete
-                                    </button>
-                                </form>
+                                <button class="btn btn-sm btn-outline-danger" @click="deleteAnswer">
+                                    Delete
+                                </button>
                             @endcan
                         </div>
                     </div>

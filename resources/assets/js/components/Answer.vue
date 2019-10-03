@@ -26,7 +26,7 @@
                 this.editing = false;
             },
             updateAnswer() {
-                axios.patch(`/questions/${this.questionId}/answers/${this.id}`, {
+                axios.patch(this.endpoint, {
                     body: this.body
                 })
                     .then(res => {
@@ -36,12 +36,28 @@
                     .catch(error => {
                         console.log('Something went wrong: ' + error);
                     });
+            },
+            deleteAnswer() {
+                if(confirm('Are you sure, you want to delete this answer?')) {
+                    axios.delete(this.endpoint)
+                        .then(res => {
+                            $(this.$el).fadeOut(500, () => {
+                                alert(res.data.message);
+                            });
+                        })
+                        .catch(error => {
+                            console.log('Something went wrong: ' + error);
+                        });
+                }
             }
         },
 
         computed: {
             isInvalid() {
                 return this.body.length < 10;
+            },
+            endpoint() {
+                return `/questions/${this.questionId}/answers/${this.id}`;
             }
         }
     }

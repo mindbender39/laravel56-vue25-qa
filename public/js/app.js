@@ -51087,7 +51087,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         updateAnswer: function updateAnswer() {
             var _this = this;
 
-            axios.patch('/questions/' + this.questionId + '/answers/' + this.id, {
+            axios.patch(this.endpoint, {
                 body: this.body
             }).then(function (res) {
                 _this.editing = false;
@@ -51095,12 +51095,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log('Something went wrong: ' + error);
             });
+        },
+        deleteAnswer: function deleteAnswer() {
+            var _this2 = this;
+
+            if (confirm('Are you sure, you want to delete this answer?')) {
+                axios.delete(this.endpoint).then(function (res) {
+                    $(_this2.$el).fadeOut(500, function () {
+                        alert(res.data.message);
+                    });
+                }).catch(function (error) {
+                    console.log('Something went wrong: ' + error);
+                });
+            }
         }
     },
 
     computed: {
         isInvalid: function isInvalid() {
             return this.body.length < 10;
+        },
+        endpoint: function endpoint() {
+            return '/questions/' + this.questionId + '/answers/' + this.id;
         }
     }
 });
