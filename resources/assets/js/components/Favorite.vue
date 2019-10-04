@@ -28,9 +28,6 @@
                     !this.signedId ? 'off' : (this.isFavorited ? 'favorited' : '')
                 ]
             },
-            signedId() {
-                return window.Auth.signedId;
-            },
             endpoint() {
                 return `/questions/${this.id}/favorites`;
             }
@@ -38,6 +35,7 @@
 
         methods: {
             toggleFavorite() {
+                // signedId is define in: \js\auth\authorize.js
                 if (!this.signedId) {
                     this.$toast.warning('Please login to mark this question as favorite.', 'Warning!', {
                         timeout: 5000,
