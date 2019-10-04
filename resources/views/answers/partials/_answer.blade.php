@@ -1,4 +1,4 @@
-<answer :answer="{{$answer}}" inline-template>
+<answer :answer-model="{{$answer}}" inline-template>
     <div class="media media-item">
         @include('partials._vote', ['model' => $answer])
 

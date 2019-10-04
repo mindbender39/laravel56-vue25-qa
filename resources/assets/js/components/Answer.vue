@@ -3,15 +3,15 @@
     export default {
         name: 'Answer',
 
-        props: ['answer'],
+        props: ['answerModel'],
 
         data() {
             return {
                 editing: false,
-                body: this.answer.body,
-                bodyHtml: this.answer.body_html,
-                id: this.answer.id,
-                questionId: this.answer.question_id,
+                body: this.answerModel.body,
+                bodyHtml: this.answerModel.body_html,
+                id: this.answerModel.id,
+                questionId: this.answerModel.question_id,
                 tempBody: null
             }
         },

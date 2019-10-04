@@ -23,6 +23,7 @@ Vue.use(VueIziToast);
 Vue.component('user-info', require('./components/UserInfo.vue'));
 Vue.component('answer', require('./components/Answer.vue'));
 Vue.component('favorite', require('./components/Favorite.vue'));
+Vue.component('answer-accept', require('./components/AnswerAccept.vue'));
 
 const app = new Vue({
     el: '#app'

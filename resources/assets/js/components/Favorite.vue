@@ -11,13 +11,13 @@
 <script>
     export default {
         name: "Favorite",
-        props: ['question'],
+        props: ['questionModel'],
 
         data() {
             return {
-                isFavorited: this.question.is_favorited,
-                count: this.question.favorites_count,
-                id: this.question.id
+                isFavorited: this.questionModel.is_favorited,
+                count: this.questionModel.favorites_count,
+                id: this.questionModel.id
             }
         },
 
