@@ -56,14 +56,14 @@ class User extends Authenticatable
     {
         $voteQuestions = $this->voteQuestions();
 
-        $this->_vote($voteQuestions, $question, $vote);
+        return $this->_vote($voteQuestions, $question, $vote);
     }
 
     public function voteAnswer(Answer $answer, $vote)
     {
         $voteAnswers = $this->voteAnswers();
 
-        $this->_vote($voteAnswers, $answer, $vote);
+        return $this->_vote($voteAnswers, $answer, $vote);
     }
 
     private function _vote($relationship, $model, $vote)
@@ -82,6 +82,8 @@ class User extends Authenticatable
 
         $model->votes_count = ($upVotes + $downVotes);
         $model->save();
+
+        return $model->votes_count;
     }
 
     /* RELATIONSHIP */
@@ -103,8 +105,7 @@ class User extends Authenticatable
            (in alphabetical order q first u last) */
         /* as we are following the convention like user_id and question_id so 3rd and 4th
            params are optional in this case */
-        /* withTimestamps() is chained for created_at and updated_at columns to fill
-           at the time to seed favorites table */
+        /* withTimestamps() is chained for created_at and updated_at columns to fill */
         return $this->belongsToMany(Question::class, 'favorites')->withTimestamps();  // user_id, question_id
     }
 
@@ -112,13 +113,13 @@ class User extends Authenticatable
     {
         // 1st argument is the related model and 2nd will be table name
         // in case of morphe relationship we use singular pivot table name: votable
-        return $this->morphedByMany(Question::class, 'votable');
+        return $this->morphedByMany(Question::class, 'votable')->withTimestamps();
     }
 
     public function voteAnswers()
     {
         // 1st argument is the related model and 2nd will be table name
         // in case of morphe relationship we use singular pivot table name: votable
-        return $this->morphedByMany(Answer::class, 'votable');
+        return $this->morphedByMany(Answer::class, 'votable')->withTimestamps();
     }
 }

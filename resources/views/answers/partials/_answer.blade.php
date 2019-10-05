@@ -1,6 +1,7 @@
 <answer :answer-model="{{$answer}}" inline-template>
     <div class="media media-item">
-        @include('partials._vote', ['model' => $answer])
+        {{--@include('partials._vote', ['model' => $answer])--}}
+        <vote model-name="answer" :model="{{$answer}}"></vote>
 
         <div class="media-body">
             <form v-if="editing" @submit.prevent="updateAnswer">

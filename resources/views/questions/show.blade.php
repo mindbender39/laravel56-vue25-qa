@@ -18,7 +18,8 @@
                         </div>
                         <hr>
                         <div class="media">
-                            @include('partials._vote', ['model' => $question])
+                            {{--@include('partials._vote', ['model' => $question])--}}
+                            <vote model-name="question" :model="{{$question}}"></vote>
 
                             <div class="media-body">
                                 {!! $question->body_html !!}
