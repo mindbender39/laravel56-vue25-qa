@@ -84,9 +84,14 @@
                         ['<button><b>YES</b></button>', (instance, toast) => {
                             axios.delete(this.endpoint)
                                 .then(res => {
-                                    $(this.$el).fadeOut(500, () => {
+                                    // temporary solution
+                                    /*$(this.$el).fadeOut(500, () => {
                                         this.$toast.success(res.data.message, 'Success!', {timeout:5000});
-                                    });
+                                    });*/
+                                    // custom event call to pass data back to parent component
+                                    // in this case its answers component so child component answer
+                                    // will delete immediately
+                                    this.$emit('deleted');
                                 })
                                 .catch(error => {
                                     this.$toast.error(error.response.data.message, 'Error!', {timeout:5000});

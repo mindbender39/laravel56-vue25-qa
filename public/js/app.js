@@ -51771,6 +51771,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
                     timeout: 5000
                 });
             });
+        },
+        removeAnswer: function removeAnswer(index) {
+            this.answers.splice(index, 1);
+            this.answersCount--;
         }
     },
 
@@ -51925,9 +51929,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 position: 'center',
                 buttons: [['<button><b>YES</b></button>', function (instance, toast) {
                     axios.delete(_this2.endpoint).then(function (res) {
-                        $(_this2.$el).fadeOut(500, function () {
-                            _this2.$toast.success(res.data.message, 'Success!', { timeout: 5000 });
-                        });
+                        // temporary solution
+                        /*$(this.$el).fadeOut(500, () => {
+                            this.$toast.success(res.data.message, 'Success!', {timeout:5000});
+                        });*/
+                        // custom event call to pass data back to parent component
+                        // in this case its answers component so child component answer
+                        // will delete immediately
+                        _this2.$emit('deleted');
                     }).catch(function (error) {
                         _this2.$toast.error(error.response.data.message, 'Error!', { timeout: 5000 });
                     });
@@ -52111,10 +52120,15 @@ var render = function() {
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
-                _vm._l(_vm.answers, function(answer) {
+                _vm._l(_vm.answers, function(answer, index) {
                   return _c("answer", {
                     key: answer.id,
-                    attrs: { "answer-model": answer }
+                    attrs: { "answer-model": answer },
+                    on: {
+                      deleted: function($event) {
+                        return _vm.removeAnswer(index)
+                      }
+                    }
                   })
                 }),
                 _vm._v(" "),
