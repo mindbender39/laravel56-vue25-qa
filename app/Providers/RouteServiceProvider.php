@@ -25,7 +25,13 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         Route::bind('slug', function ($slug) {
-            return Question::with(['user', 'answers.user'])->where('slug', $slug)->first() ?? abort('404');
+            return Question::with('user')->where('slug', $slug)->first() ?? abort('404');
+
+            // commented when fetching answers logic applied on Answers.vue file by ajax
+            //return Question::with(['user', 'answers.user'])->where('slug', $slug)->first() ?? abort('404');
+
+            // commented when orderByDesc('votes_count') apply on question model answers()
+            // relationship function
             /*return Question::with(['answers.user', 'answers'=> function($query) {
                 $query->orderByDesc('votes_count');
             }])->where('slug', $slug)->first() ?? abort('404');*/

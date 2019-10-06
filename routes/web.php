@@ -29,7 +29,7 @@ Route::resource('questions', 'QuestionsController')->except('show');
 // we can see those routes using: php artisan route:list --name=questions
 // create resource controller with model reference:
 // php artisan make:controller AnswersController -r -m Answer
-Route::resource('questions.answers', 'AnswersController')->except(['index', 'create', 'show']);
+Route::resource('questions.answers', 'AnswersController')->except(['create', 'show']);
 
 /* slug binding functionality is implemented in RouteServiceProvider */
 Route::get('/questions/{slug}', 'QuestionsController@show')->name('questions.show');

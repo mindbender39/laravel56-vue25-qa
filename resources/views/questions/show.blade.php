@@ -40,7 +40,7 @@
         </div>
 
         {{--@include('answers.partials._answer-list', ['answers'=>$question->answers, 'answersCount'=>$question->answers_count])--}}
-        <answers :answers="{{$question->answers}}" :answers-count="{{$question->answers_count}}"></answers>
+        <answers :question-model="{{$question}}"></answers>
         @include('answers.partials._create')
     </div>
 @endsection
