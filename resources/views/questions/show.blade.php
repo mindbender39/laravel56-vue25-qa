@@ -41,6 +41,6 @@
 
         {{--@include('answers.partials._answer-list', ['answers'=>$question->answers, 'answersCount'=>$question->answers_count])--}}
         <answers :question-model="{{$question}}"></answers>
-        @include('answers.partials._create')
+        {{--@include('answers.partials._create')--}}
     </div>
 @endsection
