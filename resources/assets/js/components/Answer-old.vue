@@ -1,37 +1,4 @@
-<template>
-    <div class="media media-item">
-        <vote model-name="answer" :model="answerModel"></vote>
-
-        <div class="media-body">
-            <form v-if="editing" @submit.prevent="updateAnswer">
-                <div class="form-group">
-                    <textarea v-model="body" rows="10" class="form-control" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-outline-primary" :disabled="isInvalid">Update</button>
-                <button type="button" class="btn btn-outline-secondary" @click="onCancel">Cancel</button>
-            </form>
-            <div v-else>
-                <div v-html="bodyHtml"></div>
-
-                <div class="row">
-                    <div class="col-4">
-                        <div class="ml-auto">
-                            <a v-if="authorize('canModify', answerModel)" @click.prevent="onEdit" class="btn btn-outline-info btn-sm">Edit</a>
-                            <button v-if="authorize('canModify', answerModel)" class="btn btn-sm btn-outline-danger" @click="deleteAnswer">
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-4"></div>
-                    <div class="col-4">
-                        <user-info :model="answerModel" label="Answered"></user-info>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
-
+<!-- _answer.blade.php file will work as an inline-template for this component -->
 <script>
     export default {
         name: 'Answer',

@@ -1,5 +1,5 @@
 export default {
-    modify(user, model) {
+    canModify(user, model) {
         return user.id === model.user_id;
     },
     accept(user, answer) {
