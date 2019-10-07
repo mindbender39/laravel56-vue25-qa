@@ -1,5 +1,6 @@
 Date Started: 17-09-2019
 Version: Laravel 5.6
+App Title: Question & Answer Application built with Laravel 5 & VueJs 2
 ------------------
 Help:
 ------------------
