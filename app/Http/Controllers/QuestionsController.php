@@ -112,7 +112,14 @@ class QuestionsController extends Controller
 
         $question->update($request->except('_token'));
 
-        return redirect()->route('questions.index')->with('success', 'Your question has been updated.');
+        if ($request->expectsJson()) {
+            return response()->json([
+               'message' => 'Your question has been updated!',
+                'body_html' => $question->body_html
+            ]);
+        }
+
+        return redirect()->route('questions.index')->with('success', 'Your question has been updated!');
     }
 
     /**
@@ -137,6 +144,12 @@ class QuestionsController extends Controller
 
         $question->delete();
 
-        return redirect()->route('questions.index')->with('success', 'Question has been deleted.');
+        if(request()->expectsJson()) {
+            return response()->json([
+                'message' => 'Question has been deleted!'
+            ]);
+        }
+
+        return redirect()->route('questions.index')->with('success', 'Question has been deleted!');
     }
 }

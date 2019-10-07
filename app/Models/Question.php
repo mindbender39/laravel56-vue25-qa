@@ -18,7 +18,7 @@ class Question extends Model
      * To add our accessors in response json so we can access them in VueJs components
      * */
     protected $appends = [
-        'created_date', 'is_favorited', 'favorites_count'
+        'created_date', 'is_favorited', 'favorites_count', 'body_html'
     ];
 
     /* MUTATOR */

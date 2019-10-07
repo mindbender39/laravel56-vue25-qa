@@ -33,6 +33,9 @@
 </template>
 
 <script>
+    import UserInfo from './UserInfo.vue';
+    import Vote from './Vote.vue';
+
     export default {
         name: 'Answer',
 
@@ -47,6 +50,11 @@
                 questionId: this.answerModel.question_id,
                 tempBody: null
             }
+        },
+
+        components: {
+            UserInfo,
+            Vote
         },
 
         methods: {
