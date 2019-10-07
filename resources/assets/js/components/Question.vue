@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <form class="card-body" v-if="editing" @submit.prevent="updateQuestion">
+                <form class="card-body" v-if="editing" @submit.prevent="update">
                     <div class="card-title">
                         <input type="text" class="form-control form-control-lg" v-model="title">
                     </div>
@@ -40,7 +40,7 @@
                                 <div class="col-4">
                                     <div class="ml-auto">
                                         <a v-if="authorize('canModify', questionModel)" @click.prevent="onEdit" class="btn btn-outline-info btn-sm">Edit</a>
-                                        <button v-if="authorize('deleteQuestion', questionModel)" class="btn btn-sm btn-outline-danger" @click="deleteQuestion">
+                                        <button v-if="authorize('deleteQuestion', questionModel)" class="btn btn-sm btn-outline-danger" @click="destroy">
                                             Delete
                                         </button>
                                     </div>
@@ -61,18 +61,20 @@
 <script>
     import UserInfo from './UserInfo.vue';
     import Vote from './Vote.vue';
+    import common from '../mixins/question-answer-common';
 
     export default {
         name: "Question",
 
         props: ['questionModel'],
 
+        mixins: [common],
+
         data() {
             return {
                 title: this.questionModel.title,
                 body: this.questionModel.body,
                 bodyHtml: this.questionModel.body_html,
-                editing: false,
                 id: this.questionModel.id,
                 beforeEditCache: {}
             };
@@ -93,63 +95,34 @@
         },
 
         methods: {
-            onEdit() {
+            setEditCache() {
                 this.beforeEditCache = {
                     title: this.title,
                     body: this.body
                 };
-
-                this.editing = true;
             },
-            onCancel() {
+            restoreFromCache() {
                 this.body = this.beforeEditCache.body;
                 this.title = this.beforeEditCache.title;
-                this.editing = false;
             },
-            updateQuestion() {
-                axios.put(this.endpoint, {
+            payload() {
+                return {
                     body: this.body,
                     title: this.title
-                })
+                };
+            },
+            onDelete() {
+                axios.delete(this.endpoint)
                     .then(({data}) => {
-                        this.bodyHtml = data.body_html;
-                        this.$toast.success(data.message, 'Success!', {timeout:5000});
-                        this.editing = false;
+                        this.$toast.success(data.message, 'Success!', {timeout:3000});
                     })
                     .catch(error => {
-                        this.$toast.error(error.response.data.methods, 'Error!', {timeout:5000});
+                        this.$toast.error(error.response.data.message, 'Error!', {timeout:5000});
                     });
-            },
-            deleteQuestion() {
-                this.$toast.question('Are you sure, you want to delete this question?', 'Confirm!', {
-                    timeout: 20000,
-                    close: false,
-                    overlay: true,
-                    displayMode: 'once',
-                    id: 'question',
-                    zindex: 999,
-                    position: 'center',
-                    buttons: [
-                        ['<button><b>YES</b></button>', (instance, toast) => {
-                            axios.delete(this.endpoint)
-                                .then(({data}) => {
-                                    this.$toast.success(data.message, 'Success!', {timeout:3000});
-                                })
-                                .catch(error => {
-                                    this.$toast.error(error.response.data.message, 'Error!', {timeout:5000});
-                                });
 
-                            setTimeout(() => {
-                                window.location.href = '/questions'
-                            }, 3000);
-
-                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-                        }, true],
-                        ['<button>NO</button>', function (instance, toast) {
-                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-                        }],
-                    ]
-                });
+                setTimeout(() => {
+                    window.location.href = '/questions'
+                }, 3000);
             }
         }
     }
